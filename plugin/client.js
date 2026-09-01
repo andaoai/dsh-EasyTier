@@ -265,7 +265,7 @@ return {
         const set = (k) => (e) => setCfg({ ...cfg, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value })
         kids.push(h('div', { className: 'etx-card' },
           h('div', { style: { fontWeight: 600, marginBottom: '4px' } }, '组网配置'),
-          field('网络名 network-name', h('input', { className: 'etx-input', value: cfg.networkName, disabled: running, placeholder: '例如 andaoai-network', onChange: set('networkName') })),
+          field('网络名 network-name', h('input', { className: 'etx-input', value: cfg.networkName, disabled: running, placeholder: '例如 my-mesh（同一虚拟网内所有节点一致）', onChange: set('networkName') })),
           field('网络密钥 network-secret', h('input', { className: 'etx-input', type: 'password', value: cfg.secret, disabled: running, placeholder: st && st.config && st.config.hasSecret ? '已保存（留空沿用）' : '首次启动必填', onChange: set('secret') })),
           field('引导节点 peers（每行一个）', h('textarea', { className: 'etx-ta', value: cfg.peersText, disabled: running, onChange: set('peersText') })),
           h('label', { className: 'etx-chk' },

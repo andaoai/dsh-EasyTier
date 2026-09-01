@@ -49,7 +49,7 @@ sudo setcap 'cap_net_admin,cap_net_raw+eip' "$(command -v easytier-core || echo 
 - **DHCP vs 静态 IP**：EasyTier 在拿到虚拟 IP 后才创建 TUN 网卡。加入已有节点的网络时 DHCP 一般能自动分到 `10.0.x.x`；若是自建/独立网络且长时间分不到 IP（`ipv4_addr` 为空、网卡不出现），取消勾选「DHCP」并填静态 CIDR（如 `10.0.0.99/24`）即可立即建卡——wfmon 用的就是静态 IP（`10.0.0.84/24`）。
 - **同机双 TUN 路由冲突**：wfmon 已占用 `wfmon84 = 10.0.0.84/24` 并声明了 `10.0.0.0/24` 路由。若插件实例再加入**同一网络、同一网段**，会出现第二条 `10.0.0.0/24` 路由导致 mesh 流量走向不确定。二选一：
   - 插件实例用于**另一个网络**（不同网络名/密钥，或改用别的网段如 `10.1.0.x/24`），与 wfmon 并存；
-  - 或想让插件接管 `andaoai-network`，先在 wfmon 看板断开其组网，再用插件启动（可静态复用 `10.0.0.84/24` 或 DHCP）。
+  - 或想让插件接管 wfmon 正在用的那个网络，先在 wfmon 看板断开其组网，再用插件启动（可静态复用 wfmon 原先的虚拟 IP 或 DHCP）。
 - **查询链路**：core 的 RPC portal 是 protobuf-over-TCP（非 HTTP），插件统一用 `easytier-cli -p 127.0.0.1:<rpcPort> -o json node info|peer list|connector add|remove` 查询与管理。
 - **状态轮询**：设置页每 4s 调一次 `et/status`（内部跑 `getcap`/`easytier-cli` 等轻量命令）；core 未运行时只做权能与目录探测。
 
