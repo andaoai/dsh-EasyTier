@@ -1,0 +1,51 @@
+{
+  "name": "dsh-easytier",
+  "version": "0.1.0",
+  "description": "在 DeepSeek Harness 中管理 EasyTier 个人内网组网：TUN 模式 easytier-core 生命周期、设置页状态面板与 Agent 工具。",
+  "type": "module",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "client",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "easytier",
+    "mesh",
+    "vpn",
+    "tun",
+    "networking"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andaoai/dsh-EasyTier.git"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime"
+      ],
+      "platform": "web"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": "^0.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
